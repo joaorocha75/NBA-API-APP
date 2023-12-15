@@ -1,5 +1,7 @@
 <template>
     <div>
+        <!-- faz-me um input date para mudar o start_Date -->
+        <input type="date" v-model="start_date" @change="handleStartDateChange" />
         <!-- mostrar uma lista de jogos com data, home_team.abbreviation and visitor_team.abbreviation -->
         <table class="table table-striped">
             <thead>
@@ -29,15 +31,28 @@ import { useNBAStore } from '../stores/counter.js'
             return {
                 nbaStore: useNBAStore(),
                 games: [],
+                start_date: new Date().toISOString().split('T')[0],
+                end_date: '',
             }
         },
         created () {
             try {
-                this.nbaStore.fetchGames();
+                this.end_date = this.start_date
+                this.nbaStore.fetchGames(this.start_date, this.end_date);
             } catch (error) {
                 alert(error.message);
             }
         },
+        methods: {
+            handleStartDateChange() {
+                try {
+                    this.end_date = this.start_date
+                    this.nbaStore.fetchGames(this.start_date, this.end_date);
+                } catch (error) {
+                    alert(error.message);
+                }
+            }
+        }
     }
 </script>
 

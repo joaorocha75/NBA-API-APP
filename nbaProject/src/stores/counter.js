@@ -34,9 +34,9 @@ export const useNBAStore = defineStore('nbastore', {
         throw error
       }
     },
-    async fetchGames() {
+    async fetchGames(start_date,end_date) {
       try {
-        const games = await api.get(NBA_API_URL, 'games')
+        const games = await api.get(NBA_API_URL, `games?dates[]=${start_date}&dates[]=${end_date}`)
         this.games = games.data
       } catch (error) {
         console.error(`Error fetching games:`, error)
