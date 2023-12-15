@@ -7,6 +7,7 @@
                     <th scope="col">Data</th>
                     <th scope="col">Equipa da casa</th>
                     <th scope="col">Equipa visitante</th>
+                    <th scope="col">Info do Jogo</th>
                 </tr>
             </thead>
             <tbody>
@@ -14,6 +15,7 @@
                     <td>{{ game.date }}</td>
                     <td>{{ game.home_team.abbreviation }} - {{ game.home_team_score }}</td>
                     <td>{{ game.visitor_team.abbreviation }} - {{ game.visitor_team_score }}</td>
+                    <td><button id="verInfo">Ver</button></td>
                 </tr>
             </tbody>
         </table>
@@ -63,4 +65,18 @@ import { useNBAStore } from '../stores/counter.js'
   tbody tr:hover {
     background-color: burlywood;
   }
+  /* trabalha bem o button com id= "verInfo */
+    #verInfo {
+        background-color: #4CAF50; /* Green */
+        border: none;
+        color: white;
+        padding: 5px 10px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 12px;
+        border-radius: 3px;
+        display: block;
+        margin: 0 auto;
+    }
 </style>
