@@ -1,100 +1,122 @@
 <template>
-    <div>
-        <!-- faz-me um input date para mudar o start_Date -->
-        <input type="date" v-model="start_date" @change="handleStartDateChange" />
-        <!-- mostrar uma lista de jogos com data, home_team.abbreviation and visitor_team.abbreviation -->
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">Data</th>
-                    <th scope="col">Equipa da casa</th>
-                    <th scope="col">Equipa visitante</th>
-                    <th scope="col">Info do Jogo</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="game in nbaStore.getGames" :key="game.id">
-                    <td>{{ game.date }}</td>
-                    <td>{{ game.home_team.abbreviation }} - {{ game.home_team_score }}</td>
-                    <td>{{ game.visitor_team.abbreviation }} - {{ game.visitor_team_score }}</td>
-                    <td><button id="verInfo" @click="verInfoJogo(game)">Ver</button></td>
-                </tr>
-            </tbody>
-        </table>
+  <div>
+    <!-- Input date to change the start_date -->
+    <div class="date-input-container">
+      <label for="start-date">Select Date:</label>
+      <input type="date" id="start-date" v-model="start_date" @change="handleStartDateChange" class="date-input" />
     </div>
+    
+    <!-- Display a list of games with date, home_team.abbreviation, and visitor_team.abbreviation -->
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Date</th>
+          <th scope="col">Home Team</th>
+          <th scope="col">Visitor Team</th>
+          <th scope="col">Game Info</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="game in nbaStore.getGames" :key="game.id">
+          <td>{{ formatDate(game.date) }}</td>
+          <td>{{ game.home_team.abbreviation }} - {{ game.home_team_score }}</td>
+          <td>{{ game.visitor_team.abbreviation }} - {{ game.visitor_team_score }}</td>
+          <td><button class="info-button" @click="verInfoJogo(game)">Ver</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </template>
 
 <script>
-import { useNBAStore } from '../stores/counter.js'
-    export default {
-        data() {
-            return {
-                nbaStore: useNBAStore(),
-                games: [],
-                start_date: new Date().toISOString().split('T')[0],
-                end_date: '',
-            }
-        },
-        created () {
-            try {
-                this.end_date = this.start_date
-                this.nbaStore.fetchGames(this.start_date, this.end_date);
-            } catch (error) {
-                alert(error.message);
-            }
-        },
-        methods: {
-            handleStartDateChange() {
-                try {
-                    this.end_date = this.start_date
-                    this.nbaStore.fetchGames(this.start_date, this.end_date);
-                } catch (error) {
-                    alert(error.message);
-                }
-            },
-            verInfoJogo(game) {
-                this.$router.push({ name: 'game', params: { id: game.id } });
-            }
-        }
+import { useNBAStore } from '../stores/counter.js';
+
+export default {
+  data() {
+    return {
+      nbaStore: useNBAStore(),
+      start_date: new Date().toISOString().split('T')[0],
+      end_date: '',
+    };
+  },
+  created() {
+    try {
+      this.end_date = this.start_date;
+      this.nbaStore.fetchGames(this.start_date, this.end_date);
+    } catch (error) {
+      alert(error.message);
     }
+  },
+  methods: {
+    handleStartDateChange() {
+      try {
+        this.end_date = this.start_date;
+        this.nbaStore.fetchGames(this.start_date, this.end_date);
+      } catch (error) {
+        alert(error.message);
+      }
+    },
+    verInfoJogo(game) {
+      this.$router.push({ name: 'game', params: { id: game.id } });
+    },
+    formatDate(date) {
+      return new Date(date).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      });
+    },
+  },
+};
 </script>
 
 <style scoped>
-  /* Add your custom styles here if needed */
-  .table {
-    width: 100%;
-    margin-bottom: 1rem;
-    color: white; /* Use a darker color for better contrast */
-  }
+.table {
+  width: 90%; 
+  margin: 20px auto; 
+  color: #333;
+  border-collapse: collapse;
+  background-color: #f8f9fa; 
+}
 
-  th, td {
-    padding: 0.75rem;
-    text-align: left;
-    border-bottom: 1px solid #dee2e6;
-    /* bordas redondas */
-    border-radius: 3px;
-  }
+th, td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
 
-  th {
-    background-color: grey; /* Use a softer background color */
-    font-weight: bold;
-  }
+th {
+  background-color: #e9ecef;
+  font-weight: bold;
+}
 
-  tbody tr:hover {
-    background-color: burlywood;
-  }
-  /* trabalha bem o button com id= "verInfo */
-    #verInfo {
-        background-color: #4CAF50; /* Green */
-        border: none;
-        color: white;
-        padding: 5px 10px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 12px;
-        border-radius: 3px;
-        display: block;
-        margin: 0 auto;
-    }
+tbody tr:hover {
+  background-color: #e2e8ed; 
+}
+
+.date-input-container {
+  margin-bottom: 20px;
+  text-align: center;
+  color: #fff;
+  font-weight: bold;
+}
+
+.date-input {
+  padding: 8px;
+  font-size: 14px;
+  border-radius: 5px;
+}
+
+.info-button {
+  background-color: #007bff; 
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+}
 </style>
