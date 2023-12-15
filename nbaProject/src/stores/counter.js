@@ -8,10 +8,12 @@ export const useNBAStore = defineStore('nbastore', {
   state: () => ({
     players:[],
     player:{},
+    games:[]
   }),
   getters: {
     getPlayers: (state) => state.players,
-    getPlayer: (state) => state.player
+    getPlayer: (state) => state.player,
+    getGames: (state) => state.games
   },
   actions:{
     async fetchPlayers() {
@@ -32,5 +34,14 @@ export const useNBAStore = defineStore('nbastore', {
         throw error
       }
     },
+    async fetchGames() {
+      try {
+        const games = await api.get(NBA_API_URL, 'games')
+        this.games = games.data
+      } catch (error) {
+        console.error(`Error fetching games:`, error)
+        throw error
+      }
+    }
   }
 })

@@ -3,7 +3,7 @@
     <h1 class="text-center mb-4">NBA Players</h1>
     <div class="container">
       <div class="row">
-        <div v-for="player in nbaStore.getPlayers" :key="player.id" class="col-lg-4 col-md-6 mb-4">
+        <div v-for="player in nbaStore.getPlayers" :key="player.id" class="col-3 mb-4">
           <div class="card h-100">
             <div class="card-body">
               <h3 class="card-title">{{ player.first_name }} {{ player.last_name }}</h3>
@@ -16,25 +16,6 @@
     </div>
   </div>
 </template>
-
-<script>
-import { useNBAStore } from '../stores/counter.js'
-  export default {
-    data() {
-      return {
-        nbaStore: useNBAStore(),
-        players: [],
-      }
-    },
-    created() {
-        try {
-            this.nbaStore.fetchPlayers();
-        } catch (error) {
-            alert(error.message);
-        }
-    },
-  }
-</script>
 
 <style scoped>
 .nba-players-container {
@@ -56,3 +37,25 @@ import { useNBAStore } from '../stores/counter.js'
   margin-bottom: 0.3rem;
 }
 </style>
+
+
+<script>
+import { useNBAStore } from '../stores/counter.js'
+  export default {
+    data() {
+      return {
+        nbaStore: useNBAStore(),
+        players: [],
+      }
+    },
+    created() {
+        try {
+            this.nbaStore.fetchPlayers();
+        } catch (error) {
+            alert(error.message);
+        }
+    },
+  }
+</script>
+
+
