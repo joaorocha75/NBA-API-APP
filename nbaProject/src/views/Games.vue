@@ -17,7 +17,7 @@
                     <td>{{ game.date }}</td>
                     <td>{{ game.home_team.abbreviation }} - {{ game.home_team_score }}</td>
                     <td>{{ game.visitor_team.abbreviation }} - {{ game.visitor_team_score }}</td>
-                    <td><button id="verInfo">Ver</button></td>
+                    <td><button id="verInfo" @click="verInfoJogo(game)">Ver</button></td>
                 </tr>
             </tbody>
         </table>
@@ -51,6 +51,9 @@ import { useNBAStore } from '../stores/counter.js'
                 } catch (error) {
                     alert(error.message);
                 }
+            },
+            verInfoJogo(game) {
+                this.$router.push({ name: 'game', params: { id: game.id } });
             }
         }
     }
