@@ -10,7 +10,7 @@
       <router-link to="/players">Players</router-link>
     </div>
     <div class="nav-item">
-      <router-link to="/equipas">Equipas</router-link>
+      <router-link to="/teams">Equipas</router-link>
     </div>
   </div>
 </template>

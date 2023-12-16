@@ -9,13 +9,17 @@ export const useNBAStore = defineStore('nbastore', {
     players:[],
     player:{},
     games:[],
-    game:{}
+    game:{},
+    teams:[],
+    team:{}
   }),
   getters: {
     getPlayers: (state) => state.players,
     getPlayer: (state) => state.player,
     getGames: (state) => state.games,
-    getGame: (state) =>state.game
+    getGame: (state) =>state.game,
+    getTeams: (state) => state.teams,
+    getTeam: (state) => state.team
   },
   actions:{
     async fetchPlayers() {
@@ -53,6 +57,26 @@ export const useNBAStore = defineStore('nbastore', {
         console.error(`Error fetching game:`, error)
         throw error
       }
-    }
+    },
+    async fetchTeams() {
+      try {
+        const teams = await api.get(NBA_API_URL, 'teams')
+        this.teams = teams.data
+      } catch (error) {
+        console.error(`Error fetching teams:`, error)
+        throw error
+      }
+    },
+    async fetchTeam(id) {
+      try {
+        const team = await api.get(NBA_API_URL, `teams/${id}`)
+        this.team = team
+      } catch (error) {
+        console.error(`Error fetching team:`, error)
+        throw error
+      }
+    },
   }
 })
+
+
