@@ -1,19 +1,112 @@
 <template>
     <div>
-
+        <div class="team-details">
+            <h2>{{ team.full_name }}</h2>
+            <p>City: {{ team.city }}</p>
+            <p>Conference: {{ team.conference }}</p>
+            <p>Division: {{ team.division }}</p>
+            <p>Abbreviation: {{ team.abbreviation }}</p>
+            <p>Team Name: {{ team.name }}</p>
+            <br>
+            <button @click="goBack" class="back-button">Back</button>
+        </div>
+        <br>
+        <table id="playersTable" border="1">
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Position</th>
+                    <th>Height</th>
+                    <th>Weight</th>
+                    <th>Team</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="player in players" :key="player.id">
+                    <td>{{ player.first_name }}</td>
+                    <td>{{ player.last_name }}</td>
+                    <td>{{ player.position }}</td>
+                    <td>{{ player.height_feet }}'{{ player.height_inches }}"</td>
+                    <td>{{ player.weight_pounds }} lbs</td>
+                    <td>{{ player.team.full_name }}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </template>
 
 <script>
+import { useNBAStore } from '../stores/counter.js';
+
     export default {
         data() {
             return {
-                key: value
+              nbaStore: useNBAStore(),
+              team: null,
+              players: [],
+            }
+        },
+        async created() {
+            try {
+              await this.nbaStore.fetchTeam(this.$route.params.id);
+              this.team = this.nbaStore.getTeam;
+              await this.nbaStore.fetchPlayers();
+              this.players = this.nbaStore.playersByTeam(parseInt(this.$route.params.id));
+              console.log(this.players);
+            } catch (error) {
+              console.log(error.message);
+            }
+        },
+        methods: {
+            goBack() {
+                this.$router.go(-1);   
             }
         },
     }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
+  /* Estilo global */
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 0;
+  }
 
+  /* Estilo para a equipe detalhada */
+  .team-details {
+    text-align: center;
+    margin-top: 40px;
+  }
+
+  /* Estilo para o título da equipe detalhada */
+  h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  /* Estilo para os detalhes da equipe */
+  p {
+    margin-bottom: 5px;
+  }
+
+  /* Estilo para o botão de voltar */
+  .back-button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  /* Estilo para o hover no botão de voltar */
+  .back-button:hover {
+    background-color: #45a049;
+  }
 </style>

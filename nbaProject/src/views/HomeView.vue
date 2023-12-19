@@ -9,6 +9,7 @@
               <h3 class="card-title">{{ player.first_name }} {{ player.last_name }}</h3>
               <p class="card-text"><strong>Position:</strong> {{ player.position }}</p>
               <p class="card-text"><strong>Team:</strong> {{ player.team.full_name }}</p>
+              <p class="card-text"><strong>ID da equipa:</strong> {{ player.team.id }}{{ player.height_inches }}</p>
             </div>
           </div>
         </div>

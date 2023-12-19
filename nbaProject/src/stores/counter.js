@@ -8,10 +8,11 @@ export const useNBAStore = defineStore('nbastore', {
   state: () => ({
     players:[],
     player:{},
+    pages:[],
     games:[],
     game:{},
     teams:[],
-    team:{}
+    team:{},
   }),
   getters: {
     getPlayers: (state) => state.players,
@@ -19,13 +20,19 @@ export const useNBAStore = defineStore('nbastore', {
     getGames: (state) => state.games,
     getGame: (state) =>state.game,
     getTeams: (state) => state.teams,
-    getTeam: (state) => state.team
+    getTeam: (state) => state.team,
+    getPlayersByTeam: (state) => (id) => state.players.filter(
+      player => player.team.id === id
+    ),
   },
   actions:{
     async fetchPlayers() {
       try {
         const players = await api.get(NBA_API_URL, 'players')
         this.players = players.data
+        this.pages = players.meta
+        //corre as páginas todas e devolve-me os jogadores
+        console.log(this.pages);
       } catch (error) {
         console.error(`Error fetching players:`, error)
         throw error
@@ -76,7 +83,16 @@ export const useNBAStore = defineStore('nbastore', {
         throw error
       }
     },
+    playersByTeam(id) {
+      const players = this.players.filter(player => player.team.id == id)
+      return players
+    },
   }
 })
 
+
+/* console.log(this.players);
+      console.log(this.players[0].team.id);
+      console.log('ID da equipe:', id);
+      console.log('Tipo do ID da equipe:', typeof id); */
 
