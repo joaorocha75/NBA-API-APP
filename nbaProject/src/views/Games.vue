@@ -92,7 +92,7 @@ tbody tr:hover {
 }
 
 .date-input-container {
-    margin-top: 0px;
+  margin-top: 70px;
   /* margin-bottom: 20px; */
   text-align: center;
   color: #fff;
