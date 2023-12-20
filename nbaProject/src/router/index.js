@@ -25,6 +25,11 @@ const router = createRouter({
       component: () => import('../components/Team.vue'),
     },
     {
+      path: '/teams/players/:id',
+      name: 'player',
+      component: () => import('../components/InfoJogador.vue'),
+    },
+    {
       path: '/news',
       name: 'news',
       component: NewsListView,
