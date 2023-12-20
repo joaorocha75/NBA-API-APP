@@ -13,6 +13,7 @@ export const useNBAStore = defineStore('nbastore', {
     game:{},
     teams:[],
     team:{},
+    stats:{}
   }),
   getters: {
     getPlayers: (state) => state.players,
@@ -24,18 +25,18 @@ export const useNBAStore = defineStore('nbastore', {
     getPlayersByTeam: (state) => (id) => state.players.filter(
       player => player.team.id === id
     ),
+    getPlayerStats: (state) => state.stats
   },
   actions:{
     async fetchPlayers() {
       let perPage = 100;
-      let currentPage = 1
+      let current_page = 1
       try {
         /* const players = await api.get(NBA_API_URL, `players?per_page=${perPage}&page=${currentPage}`)
         this.players = players.data
         this.pages = players.meta
  */
-        //faz um for loop para a page ir até 5
-        for (let i = 1; i < 10; i++) {
+        for (let i = current_page; i <= 10; i++) {
           const players = await api.get(NBA_API_URL, `players?per_page=${perPage}&page=${i}`)
           this.players = players.data
           this.pages = players.meta
@@ -87,6 +88,15 @@ export const useNBAStore = defineStore('nbastore', {
         this.team = team
       } catch (error) {
         console.error(`Error fetching team:`, error)
+        throw error
+      }
+    },
+    async fetchPlayerStats(season, id) {
+      try {
+        const stats = await api.get(NBA_API_URL, `stats?seasons=[]=${season}&player_ids[]?${id}`)
+        this.stats = stats.data
+      } catch (error) {
+        console.error(`Error fetching stats:`, error)
         throw error
       }
     },
