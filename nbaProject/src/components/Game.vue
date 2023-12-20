@@ -1,7 +1,8 @@
 <template>
   <div class="game-details-container">
     <div class="game-details">
-      <h2 class="final-score"><strong>{{game.home_team.abbreviation}}</strong> {{ game.home_team_score }} - {{ game.visitor_team_score }} <strong>{{game.visitor_team.abbreviation}}</strong></h2>
+      <h2 class="final-score"><strong>{{ game.home_team.abbreviation }}</strong> {{ game.home_team_score }} - {{
+        game.visitor_team_score }} <strong>{{ game.visitor_team.abbreviation }}</strong></h2>
       <p class="date">Date: {{ formatGameDate(game.date) }}</p>
       <p class="status">Status: {{ game.status }}</p>
       <p class="season">Season: {{ game.season }}</p>
@@ -61,8 +62,6 @@ export default {
 </script>
 
 <style scoped>
-/* Add your custom styles here if needed */
-
 .game-details-container {
   display: flex;
   flex-direction: column;
