@@ -7,7 +7,7 @@
       <router-link to="/">Games</router-link>
     </div>
     <div class="nav-item">
-      <router-link to="/players">Players</router-link>
+      <router-link to="/news">News</router-link>
     </div>
     <div class="nav-item">
       <router-link to="/teams">Equipas</router-link>
@@ -36,11 +36,13 @@ export default {
   padding: 10px;
   display: flex;
   justify-content: space-around;
-  z-index: 1000; /* Ensure the header appears above other content */
+  z-index: 1000;
+  /* Ensure the header appears above other content */
 }
 
 .nba-icon img {
-  width: 30px; /* Adjust the width as needed */
+  width: 30px;
+  /* Adjust the width as needed */
   height: auto;
   /* baixa um bocado mais sem alterar a altura do header */
 }
