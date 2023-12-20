@@ -11,15 +11,14 @@
             <button @click="goBack" class="back-button">Back</button>
         </div>
         <br>
+        <h1>Plantel - {{team.full_name}}</h1>
         <table id="playersTable" border="1">
             <thead>
                 <tr>
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Position</th>
-                    <th>Height</th>
-                    <th>Weight</th>
-                    <th>Team</th>
+                    <th>Info Jogador</th>
                 </tr>
             </thead>
             <tbody>
@@ -27,9 +26,9 @@
                     <td>{{ player.first_name }}</td>
                     <td>{{ player.last_name }}</td>
                     <td>{{ player.position }}</td>
-                    <td>{{ player.height_feet }}'{{ player.height_inches }}"</td>
-                    <td>{{ player.weight_pounds }} lbs</td>
-                    <td>{{ player.team.full_name }}</td>
+                    <td>
+                        <router-link :to="{ name: 'player', params: { id: player.id } }">Info</router-link>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -53,11 +52,13 @@ import { useNBAStore } from '../stores/counter.js';
               this.team = this.nbaStore.getTeam;
               await this.nbaStore.fetchPlayers();
               this.players = this.nbaStore.playersByTeam(parseInt(this.$route.params.id));
-              console.log(this.players);
             } catch (error) {
               console.log(error.message);
             }
         },
+        //faz-me vupdate dos dados que ele cria em cima
+
+
         methods: {
             goBack() {
                 this.$router.go(-1);   

@@ -27,12 +27,19 @@ export const useNBAStore = defineStore('nbastore', {
   },
   actions:{
     async fetchPlayers() {
+      let perPage = 100;
+      let currentPage = 1
       try {
-        const players = await api.get(NBA_API_URL, 'players')
+        /* const players = await api.get(NBA_API_URL, `players?per_page=${perPage}&page=${currentPage}`)
         this.players = players.data
         this.pages = players.meta
-        //corre as páginas todas e devolve-me os jogadores
-        console.log(this.pages);
+ */
+        //faz um for loop para a page ir até 5
+        for (let i = 1; i < 10; i++) {
+          const players = await api.get(NBA_API_URL, `players?per_page=${perPage}&page=${i}`)
+          this.players = players.data
+          this.pages = players.meta
+        }
       } catch (error) {
         console.error(`Error fetching players:`, error)
         throw error
@@ -89,10 +96,4 @@ export const useNBAStore = defineStore('nbastore', {
     },
   }
 })
-
-
-/* console.log(this.players);
-      console.log(this.players[0].team.id);
-      console.log('ID da equipe:', id);
-      console.log('Tipo do ID da equipe:', typeof id); */
 
