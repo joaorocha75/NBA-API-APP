@@ -36,7 +36,6 @@ export const useNBAStore = defineStore('nbastore', {
         this.players = players.data
         this.pages = players.meta
  */
-        //faz um for loop para a page ir até 5
         for (let i = current_page; i <= 10; i++) {
           const players = await api.get(NBA_API_URL, `players?per_page=${perPage}&page=${i}`)
           this.players = players.data

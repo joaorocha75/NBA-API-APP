@@ -1,12 +1,9 @@
 <template>
   <div>
-    <!-- Input date to change the start_date -->
     <div class="date-input-container">
       <label for="start-date">Select Date:</label>
       <input type="date" id="start-date" v-model="start_date" @change="handleStartDateChange" class="date-input" />
     </div>
-    
-    <!-- Display a list of games with date, home_team.abbreviation, and visitor_team.abbreviation -->
     <table class="table table-striped">
       <thead>
         <tr>
