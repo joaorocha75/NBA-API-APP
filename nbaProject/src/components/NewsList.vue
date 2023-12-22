@@ -72,6 +72,22 @@ export default {
 </script>
 
 <style scoped>
+.news-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.news-item {
+    width: 100%;
+    max-width: 400px;
+}
+
+.news-item-content {
+    padding: 16px;
+}
+
+
 h1 {
     margin-top: 10vh;
 }
@@ -89,10 +105,11 @@ h3 {
 }
 
 .team-card {
-    border: 1px solid #ddd;
     padding: 16px;
     margin: 16px;
     text-align: center;
+    border-radius: 8px;
+    display: inline-block;
 }
 
 .team-logo {
