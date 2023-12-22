@@ -10,7 +10,7 @@
       <router-link to="/news">News</router-link>
     </div>
     <div class="nav-item">
-      <router-link to="/teams">Equipas</router-link>
+      <router-link to="/teams">Teams</router-link>
     </div>
   </div>
 </template>
@@ -36,15 +36,16 @@ export default {
   padding: 10px;
   display: flex;
   justify-content: space-around;
+  align-items: center; /* Center items vertically */
   z-index: 1000;
-  /* Ensure the header appears above other content */
 }
 
 .nba-icon img {
-  width: 30px;
-  /* Adjust the width as needed */
+  width: 70px; /* Increase the width as needed */
   height: auto;
-  /* baixa um bocado mais sem alterar a altura do header */
+  display: block;
+  margin-right: 10px;
+  margin: 0; /* Remove any default margin */
 }
 
 .nav-item {
@@ -58,5 +59,3 @@ a {
   font-size: 16px;
 }
 </style>
-
-

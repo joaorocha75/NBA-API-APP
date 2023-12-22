@@ -4,6 +4,7 @@
             <img :src="team.logo" alt="Team Logo" class="team-logo" />
             <p class="team-name">{{ team.name }}</p>
         </div>
+        
         <h1>Latest News</h1>
         <div v-if="news.length > 0">
             <div class="news-list">

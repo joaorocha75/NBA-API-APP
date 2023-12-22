@@ -11,3 +11,8 @@ import Header from '@/components/Header.vue'; // Replace with the correct path t
 </script>
 
 
+<style>
+#app {
+  width: 100%;
+}
+</style>
