@@ -84,6 +84,8 @@ export default {
     justify-content: center;
     align-items: center;
     width: 70vw;
+    margin-top: 80px;
+
 }
 
 .table {
