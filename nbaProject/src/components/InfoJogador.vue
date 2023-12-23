@@ -109,6 +109,9 @@ import {useNBAStore} from '../stores/counter.js';
     }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
+.player-info {
+    margin-top: 8vh;
+}
 
 </style>

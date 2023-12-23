@@ -6,7 +6,7 @@
       </div>
     <div>
         <div class="date-input-container">
-          <label for="start-date" style="color: black;">Select Date:</label>
+          <label for="start-date" style="color: white;">Select Date:</label>
           <input type="date" id="start-date" v-model="start_date" @change="handleStartDateChange" class="date-input" />
       </div>
         <div class="table-col">
