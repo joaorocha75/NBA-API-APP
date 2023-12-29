@@ -61,7 +61,7 @@ export default {
   left: 0;
   width: 100%;
   height: 5px;
-  background-color: red; 
+  background-color: rgb(255, 0, 0); 
 }
 
 a {
