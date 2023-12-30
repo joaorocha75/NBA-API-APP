@@ -1,30 +1,34 @@
 <template>
-  <div class="game-details-container">
-    <div class="game-details">
-      <h2 class="final-score"><strong>{{ game.home_team.abbreviation }}</strong> {{ game.home_team_score }} - {{
-        game.visitor_team_score }} <strong>{{ game.visitor_team.abbreviation }}</strong></h2>
-      <p class="date">Date: {{ formatGameDate(game.date) }}</p>
-      <p class="status">Status: {{ game.status }}</p>
-      <p class="season">Season: {{ game.season }}</p>
-      <p class="period">Period: {{ game.period }}</p>
-      <p class="postseason">Postseason: {{ game.postseason ? 'Yes' : 'No' }}</p>
-      <div class="teams">
-        <div class="home-team">
-          <h3>{{ game.home_team.full_name }}</h3>
-          <p>{{ game.home_team.city }} {{ game.home_team.name }}</p>
-          <p>Conference: {{ game.home_team.conference }}</p>
-          <p>Division: {{ game.home_team.division }}</p>
-        </div>
-        <div class="visitor-team">
-          <h3>{{ game.visitor_team.full_name }}</h3>
-          <p>{{ game.visitor_team.city }} {{ game.visitor_team.name }}</p>
-          <p>Conference: {{ game.visitor_team.conference }}</p>
-          <p>Division: {{ game.visitor_team.division }}</p>
+  <div class="container">
+    <div class="game-details-container">
+      <div class="game-details">
+        <h2 class="final-score">
+          <strong>{{ game.home_team.abbreviation }}</strong> 
+          {{ game.home_team_score }} - {{ game.visitor_team_score }} 
+          <strong>{{ game.visitor_team.abbreviation }}</strong></h2>
+        <p class="date">Date: {{ formatGameDate(game.date) }}</p>
+        <p class="status">Status: {{ game.status }}</p>
+        <p class="season">Season: {{ game.season }}</p>
+        <p class="period">Period: {{ game.period }}</p>
+        <p class="postseason">Postseason: {{ game.postseason ? 'Yes' : 'No' }}</p>
+        <div class="teams">
+          <div class="home-team">
+            <h3>{{ game.home_team.full_name }}</h3>
+            <p>{{ game.home_team.city }} {{ game.home_team.name }}</p>
+            <p>Conference: {{ game.home_team.conference }}</p>
+            <p>Division: {{ game.home_team.division }}</p>
+          </div>
+          <div class="visitor-team">
+            <h3>{{ game.visitor_team.full_name }}</h3>
+            <p>{{ game.visitor_team.city }} {{ game.visitor_team.name }}</p>
+            <p>Conference: {{ game.visitor_team.conference }}</p>
+            <p>Division: {{ game.visitor_team.division }}</p>
+          </div>
         </div>
       </div>
+      <br>
+      <button @click="goBack" class="back-button">Back</button>
     </div>
-    <br>
-    <button @click="goBack" class="back-button">Back</button>
   </div>
 </template>
 
@@ -62,6 +66,7 @@ export default {
 </script>
 
 <style scoped>
+
 .game-details-container {
   display: flex;
   flex-direction: column;
@@ -97,11 +102,13 @@ h2.final-score {
   color: #333;
   margin-bottom: 10px;
   font-size: 24px;
+  text-align: center; /* Center the final score */
 }
 
 p {
   color: #666;
   margin-bottom: 8px;
+  text-align: center; /* Center other paragraphs */
 }
 
 .teams {
@@ -117,6 +124,7 @@ p {
   background-color: #f7f7f7;
   border-radius: 4px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  text-align: center; /* Center team information */
 }
 
 h3 {
@@ -124,4 +132,3 @@ h3 {
   margin-bottom: 8px;
 }
 </style>
-
