@@ -39,6 +39,11 @@ const router = createRouter({
       name: 'newsItem',
       component: () => import('../components/NewsList.vue'),
     },
+    {
+      path: '/top10',
+      name: 'top10',
+      component: () => import('../components/Top10.vue'),
+    },
   ],
 });
 

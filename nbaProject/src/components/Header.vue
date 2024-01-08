@@ -12,6 +12,9 @@
     <div class="nav-item" :class="{ 'active': $route.path === '/teams' }">
       <router-link to="/teams">Teams</router-link>
     </div>
+    <div class="nav-item" :class="{ 'active': $route.path === '/top10' }">
+      <router-link to="/top10">TOP 10 Players</router-link>
+    </div>
   </div>
 </template>
 
