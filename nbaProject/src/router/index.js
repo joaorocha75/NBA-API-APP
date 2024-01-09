@@ -36,8 +36,8 @@ const router = createRouter({
     },
     {
       path: '/news/:id',
-      name: 'newsItem',
-      component: () => import('../components/NewsList.vue'),
+      name: 'teamNews',
+      component: () => import('../components/teamNews.vue'),
     },
     {
       path: '/top10',
