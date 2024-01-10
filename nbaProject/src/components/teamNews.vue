@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <h1>Main news for {{ teamName }}</h1>
-
+        <br>
         <div v-if="news.length > 0" class="news-list">
             <div class="news-item" v-for="item in news" :key="item.id">
                 <div class="news-card">
@@ -12,6 +12,9 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div v-else>
+            <p class="no-news-message">No news available.</p>
         </div>
     </div>
 </template>
@@ -41,7 +44,8 @@ export default {
         };
 
         const fetchNews = async () => {
-            await newsStore.fetchNewsByTeam(teamName.value);
+            const teamName = route.params.id;
+            await newsStore.fetchNewsByTeam(teamName);
             news.value = newsStore.news;
         };
 
@@ -69,6 +73,7 @@ export default {
             displaySource,
             teams: teamsStore.teams,
             teamName,
+            teamId: route.params.id,
         };
     },
 };

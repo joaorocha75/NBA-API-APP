@@ -124,6 +124,7 @@ export default {
 .team-name {
   margin-top: 8px;
   font-weight: bold;
+  color: black;
 }
 
 h1 {
