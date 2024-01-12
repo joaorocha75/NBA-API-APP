@@ -38,7 +38,6 @@ export const useNewsStore = defineStore('news', {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
-        console.log(response);
         const data = await response.json();
         this.news = data;
       } catch (error) {

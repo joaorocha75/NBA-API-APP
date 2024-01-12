@@ -79,5 +79,6 @@ export const useTeamsStore = defineStore('team', {
     getTeams: (state) => state.teams,
     getTeamById: (state) => (id) => state.teams.find((team) => team.id === id),
     getTeamNameById: (state) => (id) => state.teams.find((team) => team.id === id).name,
+    getTeamLogoById: (state) => (id) => state.teams.find((team) => team.id === id).logo,
   },
 });

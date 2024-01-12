@@ -80,70 +80,75 @@ export default {
 };
 </script>
 
-<style>
-  /* Estilo global */
-  body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
-    margin: 0;
-    padding: 0;
-  }
+<style scoped>
+/* Estilo global */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
 
-  /* Estilo para o componente Teams */
-  .conference-table {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 200px;
-    justify-content: space-between;
-    margin-top: 20px;
-  }
+/* Estilo para o componente Teams */
+.conference-table {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 200px;
+  justify-content: space-between;
+  margin-top: 20px;
+}
 
-  /* Estilo para a tabela da Conferência Oeste */
-  .west-table {
-    width: 48%; /* Defina a largura desejada */
-  }
+/* Estilo para a tabela da Conferência Oeste */
+.west-table {
+  width: 48%;
+  /* Defina a largura desejada */
+}
 
-  /* Estilo para a tabela da Conferência Este */
-  .east-table {
-    width: 48%; /* Defina a largura desejada */
-  }
+/* Estilo para a tabela da Conferência Este */
+.east-table {
+  width: 48%;
+  /* Defina a largura desejada */
+}
 
-  /* Estilo para as tabelas */
-  table {
-    width: 300%;
-    border-collapse: collapse;
-    margin-top: 20px;
-  }
+/* Estilo para as tabelas */
+table {
+  width: 300%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
 
-  th, td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-  }
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
 
-  th {
-    background-color: #4CAF50; /* Cor de fundo do cabeçalho da tabela */
-    color: white;
-  }
+th {
+  background-color: #4CAF50;
+  /* Cor de fundo do cabeçalho da tabela */
+  color: white;
+}
 
-  tr:nth-child(even) {
-    background-color: #f2f2f2; /* Cor de fundo para linhas pares */
-  }
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+  /* Cor de fundo para linhas pares */
+}
 
-  /* Estilo para o hover nas linhas */
-  tr:hover {
-    background-color: #ddd;
-  }
+/* Estilo para o hover nas linhas */
+tr:hover {
+  background-color: #ddd;
+}
 
-  /* Estilo para o título */
-  .titulo {
-    margin-top: 70px;
-    text-align: center;
-    font-size: 36px;
-    line-height: 42px;
-    font-weight: bold;
-  }
+/* Estilo para o título */
+.titulo {
+  margin-top: 70px;
+  text-align: center;
+  font-size: 36px;
+  line-height: 42px;
+  font-weight: bold;
+}
 </style>
 
 

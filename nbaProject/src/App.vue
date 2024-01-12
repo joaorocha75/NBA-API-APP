@@ -14,5 +14,9 @@ import Header from '@/components/Header.vue'; // Replace with the correct path t
 <style>
 #app {
   width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 </style>

@@ -10,9 +10,7 @@
       </div>
     </div>
 
-    <h1 style="  font-weight: bold;">Latest News</h1>
-    <br><br>
-
+    <h1 style="font-weight: bold; padding-bottom: 3vh;">Latest News</h1>
     <div v-if="news.length > 0" class="news-list">
       <div class="news-item" v-for="item in news" :key="item.id">
         <div class="news-card">
@@ -140,7 +138,7 @@ h1 {
 
 .news-item {
   width: 100%;
-  max-width: 400px;
+  max-width: 470px;
   margin-bottom: 20px;
 }
 
@@ -152,12 +150,17 @@ h1 {
 }
 
 .news-item-content {
-  padding: 16px;
+  padding: 20px;
 }
 
 h3 {
   font-weight: 700;
   margin-bottom: 8px;
+  font-size: 1.2rem;
+  line-height: 1.4rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .news-source {
