@@ -94,26 +94,14 @@ body {
 .conference-table {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-gap: 200px;
+  grid-gap: 100px;
   justify-content: space-between;
   margin-top: 20px;
 }
 
-/* Estilo para a tabela da Conferência Oeste */
-.west-table {
-  width: 48%;
-  /* Defina a largura desejada */
-}
-
-/* Estilo para a tabela da Conferência Este */
-.east-table {
-  width: 48%;
-  /* Defina a largura desejada */
-}
-
 /* Estilo para as tabelas */
 table {
-  width: 300%;
+  width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
 }
@@ -123,22 +111,6 @@ td {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: left;
-}
-
-th {
-  background-color: #4CAF50;
-  /* Cor de fundo do cabeçalho da tabela */
-  color: white;
-}
-
-tr:nth-child(even) {
-  background-color: #f2f2f2;
-  /* Cor de fundo para linhas pares */
-}
-
-/* Estilo para o hover nas linhas */
-tr:hover {
-  background-color: #ddd;
 }
 
 /* Estilo para o título */

@@ -8,7 +8,6 @@
       <p>Abbreviation: {{ team.abbreviation }}</p>
       <p>Team Name: {{ team.name }}</p>
       <br>
-      <button @click="goBack" class="back-button">Back</button>
     </div>
     <br>
     <h1>Plantel - {{ team.full_name }}</h1>
@@ -32,6 +31,10 @@
         </tr>
       </tbody>
     </table>
+    <br>
+    <div>
+      <button @click="goBack" class="back-button">Back</button>
+    </div>
   </div>
 </template>
 
@@ -58,7 +61,9 @@ export default {
   },
   methods: {
     goBack() {
-      this.$router.go(-1);
+      this.$router.push(
+        { name: 'teams' },
+      )
     },
   },
 };
@@ -84,38 +89,13 @@ body {
   margin-top: 40px;
 }
 
-/* Estilo para a equipe detalhada */
-.team-details {
-  margin-bottom: 20px;
-}
-
-/* Estilo para o título da equipe detalhada */
-h2 {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-/* Estilo para os detalhes da equipe */
-p {
-  margin-bottom: 5px;
-}
-
 /* Estilo para o botão de voltar */
 .back-button {
   padding: 10px 20px;
-  background-color: #4CAF50;
-  color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   font-size: 16px;
-  transition: background-color 0.3s;
-}
-
-/* Estilo para o hover no botão de voltar */
-.back-button:hover {
-  background-color: #45a049;
 }
 
 /* Estilo para a tabela de jogadores */
@@ -132,17 +112,8 @@ p {
   text-align: left;
 }
 
-#playersTable th {
-  background-color: #4CAF50;
-  color: white;
-}
-
-#playersTable tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
-/* Estilo para o hover nas linhas */
-#playersTable tr:hover {
-  background-color: #ddd;
+/* mete um hover no back-button e mete uma cor simples */
+.back-button:hover {
+  background-color: 'blue';
 }
 </style>

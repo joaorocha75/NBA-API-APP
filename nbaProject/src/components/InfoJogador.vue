@@ -73,9 +73,9 @@
         <router-link :to="{ name: 'team', params: { id: player.team.id } }">Back</router-link>
       </div>
     </div>
-  </template>
+</template>
   
-  <script>
+<script>
   import { useNBAStore } from '../stores/counter.js';
   
   export default {
@@ -85,7 +85,6 @@
         player: null,
         stats: null,
         season: 2023,
-        
       };
     },
     async created() {
@@ -94,7 +93,7 @@
         this.player = this.nbaStore.getPlayer;
         console.log(this.player);
 
-        await this.nbaStore.fetchPlayerStats(this.$route.params.id);
+        await this.nbaStore.fetchPlayerStats(this.season, this.$route.params.id);
         this.stats = this.nbaStore.getPlayerStats;
       } catch (error) {
         console.log(error.message);
@@ -103,7 +102,7 @@
     methods: {
       async handleSeasonChange() {
         try {
-          await this.nbaStore.fetchPlayerStats(this.$route.params.id, this.season);
+          await this.nbaStore.fetchPlayerStats(this.season, this.$route.params.id);
           this.stats = this.nbaStore.getPlayerStats;
         } catch (error) {
           console.log(error.message);
@@ -111,82 +110,52 @@
       },
     },
   };
-  </script>
-  
-  <style scoped>
-  /* Estilo global */
-  body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
-  }
-  
-  /* Estilo para o container centralizado */
+</script>
+
+<style scoped>
 .center-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  text-align: center;
   margin-top: 100px;
 }
-  
-  /* Estilo para a equipe detalhada */
-  .player-info {
-    margin-bottom: 20px;
-  }
-  
-  /* Estilo para o título da equipe detalhada */
-  h1 {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-  
-  /* Estilo para os detalhes da equipe */
-  h2 {
-    margin-bottom: 5px;
-  }
-  
-  /* Estilo para a tabela de estatísticas */
-  #playersTable {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-  }
-  
-  #playersTable th,
-  #playersTable td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-  }
-  
-  #playersTable th {
-    background-color: #4CAF50;
-    color: white;
-  }
-  
-  #playersTable tr:nth-child(even) {
-    background-color: #f2f2f2;
-  }
-  
-  /* Estilo para o hover nas linhas */
-  #playersTable tr:hover {
-    background-color: #ddd;
-  }
-  
-  /* Estilo para a seleção de ano */
-  .ano {
-    margin-top: 10px;
-  }
-  
-  /* Estilo para o botão de voltar */
-  .back-button {
+
+.player-info {
+  margin-bottom: 20px;
+}
+
+h1 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+h2 {
+  margin-bottom: 5px;
+}
+
+#playersTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+#playersTable th,
+#playersTable td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.ano {
+  margin-top: 10px;
+}
+
+.back-button {
   margin-top: 20px;
   padding: 10px 20px;
-  background-color: #4CAF50; 
-  color: white; 
+  background-color: #4CAF50;
+  color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -194,8 +163,7 @@
   transition: background-color 0.3s;
 }
 
-/* Estilo para o hover no botão de voltar */
 .back-button:hover {
-  background-color: #45a049;
+  background-color: 'white';
 }
 </style>
