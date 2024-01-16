@@ -96,6 +96,7 @@ body {
   border-radius: 4px;
   cursor: pointer;
   font-size: 16px;
+  margin-top: 20px;
 }
 
 /* Estilo para a tabela de jogadores */
