@@ -16,8 +16,8 @@ const router = createRouter({
     },
     {
       path: '/live',
-      name: 'liveGames',
-      component: () => import('../views/LiveGames.vue'),
+      name: 'LiveGamesList',
+      component: () => import('../views/LiveGamesList.vue'),
     },
     {
       path: '/teams',
