@@ -97,7 +97,7 @@ export const useNBAStore = defineStore('nbastore', {
     },
     async fetchPlayerStats(season, id) {
       try {
-        const stats = await api.get(NBA_API_URL, `stats?seasons=[]=${season}&player_ids[]?${id}`)
+        const stats = await api.get(NBA_API_URL, `stats?season=[]=${season}&player_ids[]=${id}`)
         this.stats = stats.data
       } catch (error) {
         console.error(`Error fetching stats:`, error)
