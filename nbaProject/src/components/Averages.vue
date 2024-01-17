@@ -1,12 +1,18 @@
 <template>
     <div class="player-info-container">
     <h1 class="title">Player Averges Information</h1>
+
+
       <div v-if="playerInfo" class="player-details">
         <p><strong>Player Name:</strong> {{ playerInfo.first_name }} {{ playerInfo.last_name }}</p>
         <p><strong>Position:</strong> {{ playerInfo.position }}</p>
       </div>
   
       <h2 class="player-name">Season Averages</h2>
+      <label for="seasonSelect">Select Season:</label>
+      <select id="seasonSelect" v-model="selectedSeason" @change="fetchSeasonAverages">
+        <option v-for="season in availableSeasons" :key="season" :value="season">{{ season }}</option>
+      </select>
       <div v-if="seasonAverages" class="season-averages">
         <table>
           <thead>
@@ -51,6 +57,8 @@
       return {
         playerInfo: null,
         seasonAverages: null,
+        selectedSeason: '2022',
+        availableSeasons: ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024'],
       };
     },
     mounted() {
@@ -63,18 +71,18 @@
         try {
           const response = await fetch(`https://www.balldontlie.io/api/v1/players/${playerId}`);
           const data = await response.json();
-  
+
           this.playerInfo = data;
         } catch (error) {
           console.error(`Error fetching player information:`, error);
         }
       },
-      async fetchSeasonAverages(playerId) {
+      async fetchSeasonAverages() {
         try {
-
-          const response = await fetch(`https://www.balldontlie.io/api/v1/season_averages?player_ids[]=${playerId}`);
+          const playerId = this.$route.params.id;
+          const response = await fetch(`https://www.balldontlie.io/api/v1/season_averages?season=${this.selectedSeason}&player_ids[]=${playerId}`);
           const data = await response.json();
-  
+
           this.seasonAverages = data.data[0];
         } catch (error) {
           console.error(`Error fetching season averages:`, error);
@@ -88,7 +96,6 @@
 .player-info-container {
   margin: 20px;
 }
-
 .player-name {
     font-size: 1.5em;
     flex: 1;
@@ -105,23 +112,19 @@
     align-items: center;
     text-align: center;
 }
-
 table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 10px;
 }
-
 th, td {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: left;
 }
-
 th {
   background-color: #f2f2f2;
 }
-
 .title {
     flex: 1;
     justify-content: center;
