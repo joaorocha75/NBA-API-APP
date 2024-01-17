@@ -59,20 +59,30 @@ export const useGameStore = defineStore('game', {
     },
     simulateGameUpdate() {
       // Update gameTime every second
-      setInterval(() => {
+      const timeIntervalId = setInterval(() => {
         this.updateSeconds();
         const gameTime = this.generateFakeTime();
         this.updateGameTime(gameTime);
       }, 1000);
 
       // Update scores every 10 seconds
-      setInterval(() => {
+      const gameUpdateIntervalId = setInterval(() => {
         this.updateSeconds();
         const { homeTeamScore, awayTeamScore, gameTime } = this.generateFakeGameData();
         this.updateScores(homeTeamScore, awayTeamScore);
         this.updateGameTime(gameTime);
         console.log('Scores updated');
       }, 10000); // Update every 10 seconds
+
+      // Save the interval IDs in the store for later use
+      this.timeIntervalId = timeIntervalId;
+      this.gameUpdateIntervalId = gameUpdateIntervalId;
+    },
+
+    stopGameUpdate() {
+      // Use the saved interval IDs to clear the intervals
+      clearInterval(this.timeIntervalId);
+      clearInterval(this.gameUpdateIntervalId);
     },
   },
 });

@@ -4,20 +4,19 @@
         <div class="live-game">
             <div class="home-team">
                 <img :src="homeTeam.logo" id="home-team-logo" alt="home team logo" />
-                <p>{{ homeTeam.name }} Score: {{ gameState.homeTeamScore }}</p>
+                <p>{{ homeTeam.name }} Score: {{ gameStore.homeTeamScore }}</p>
             </div>
-            <p>Game Time: {{ gameState.gameTime }}</p>
+            <p>Game Time: {{ gameStore.gameTime }}</p>
             <div class="away-team">
                 <img :src="awayTeam.logo" id="away-team-logo" alt="away team logo" />
-                <p>{{ awayTeam.name }} Score: {{ gameState.awayTeamScore }}</p>
+                <p>{{ awayTeam.name }} Score: {{ gameStore.awayTeamScore }}</p>
             </div>
-
         </div>
     </div>
 </template>
 
 <script>
-import { reactive, watchEffect } from 'vue';
+import { onBeforeUnmount } from 'vue';
 import { useGameStore } from '@/stores/liveGames';
 import { useTeamsStore } from '@/stores/teams';
 
@@ -27,38 +26,29 @@ export default {
         const gameStore = useGameStore();
         const teamsStore = useTeamsStore();
 
-        // Create a reactive reference to the store state
-        const gameState = reactive({
-            homeTeamScore: gameStore.homeTeamScore,
-            awayTeamScore: gameStore.awayTeamScore,
-            gameTime: gameStore.gameTime,
-        });
-
-        // Watch for changes in the store state and update the reactive reference
-        watchEffect(() => {
-            gameState.homeTeamScore = gameStore.homeTeamScore;
-            gameState.awayTeamScore = gameStore.awayTeamScore;
-            gameState.gameTime = gameStore.gameTime;
-        });
-
         const homeTeam = teamsStore.teams[Math.floor(Math.random() * teamsStore.teams.length)];
         let awayTeam = teamsStore.teams[Math.floor(Math.random() * teamsStore.teams.length)];
         while (awayTeam.name === homeTeam.name) {
             awayTeam = teamsStore.teams[Math.floor(Math.random() * teamsStore.teams.length)];
         }
 
+        // Simulate game updates when the component is mounted
+        gameStore.simulateGameUpdate();
+
+        // Cleanup when the component is about to be unmounted
+        onBeforeUnmount(() => {
+            gameStore.stopGameUpdate();
+        });
+
         return {
-            gameState,
+            gameStore,
             homeTeam,
             awayTeam,
         };
     },
-    mounted() {
-        // Start simulating game updates when the component is mounted
-        useGameStore().simulateGameUpdate();
-    },
 };
 </script>
+
 
 <style scoped>
 .container {
