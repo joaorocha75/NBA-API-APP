@@ -49,6 +49,11 @@ const router = createRouter({
       name: 'top10',
       component: () => import('../components/Top10.vue'),
     },
+    {
+      path: '/teams/players/:id/average',
+      name: 'average',
+      component: () => import('../components/Averages.vue'),
+    },
   ],
 });
 

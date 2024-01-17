@@ -13,7 +13,9 @@ export const useNBAStore = defineStore('nbastore', {
     game:{},
     teams:[],
     team:{},
-    stats:{}
+    stats:{},
+    seasonAverages: {}, // New state for season averages
+
   }),
   getters: {
     getPlayers: (state) => state.players,
@@ -25,7 +27,9 @@ export const useNBAStore = defineStore('nbastore', {
     getPlayersByTeam: (state) => (id) => state.players.filter(
       player => player.team.id === id
     ),
-    getPlayerStats: (state) => state.stats
+    getPlayerStats: (state) => state.stats,
+
+    getSeasonAverages: (state) => state.seasonAverages,// New getter for season averages
   },
   actions:{
     async fetchPlayers() {
@@ -98,6 +102,16 @@ export const useNBAStore = defineStore('nbastore', {
       } catch (error) {
         console.error(`Error fetching stats:`, error)
         throw error
+      }
+    },
+    async fetchSeasonAverages(id, season) {
+      try {
+        const averages = await api.get(NBA_API_URL, `season_averages?season=${season}&player_ids[]=${id}`);
+        console.log('Averages:', averages);
+        this.seasonAverages = averages.data[0];
+      } catch (error) {
+        console.error(`Error fetching season averages:`, error);
+        throw error;
       }
     },
     playersByTeam(id) {
