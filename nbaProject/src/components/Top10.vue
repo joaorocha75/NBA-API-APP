@@ -71,9 +71,9 @@ export default {
     const topRebounders = ref([]);
     
     // Add a ref for the selected season
-    const selectedSeason = ref('2022');
+    const selectedSeason = ref('2023');
     // Add a list of available seasons
-    const availableSeasons = ref(['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022']);
+    const availableSeasons = ref(['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022','2023']);
     const fetchData = async () => {
       try {
         const stats = await api.get('https://www.balldontlie.io/api/v1', `stats?seasons[]=${selectedSeason.value}`);
