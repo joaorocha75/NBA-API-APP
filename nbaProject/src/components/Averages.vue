@@ -50,15 +50,16 @@
         <p>Loading...</p>
       </div>
     </div>
-  </template>
-  <script>
+</template>
+
+<script>
   export default {
     data() {
       return {
         playerInfo: null,
         seasonAverages: null,
-        selectedSeason: '2022',
-        availableSeasons: ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024'],
+        selectedSeason: '2023',
+        availableSeasons: ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023'],
       };
     },
     mounted() {
@@ -90,9 +91,9 @@
       },
     },
   };
-  </script>
+</script>
   
-  <style scoped>
+<style scoped>
 .player-info-container {
   margin: 20px;
 }

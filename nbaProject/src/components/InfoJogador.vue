@@ -91,10 +91,9 @@ export default {
       nbaStore: useNBAStore(),
       player: null,
       stats: null,
-      selectedSeason: ('2024'),
-      availableSeasons:(['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022','2023','2024']),
+      selectedSeason: ref('2023'),
+      availableSeasons:ref(['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022','2023']),
       seasonAverages: null,
-
     };
   },
   async created() {
@@ -112,13 +111,12 @@ export default {
     async handleSeasonChange() {
       try {
         await this.nbaStore.fetchPlayerStats(this.selectedSeason, this.$route.params.id);
-        console.log(this.selectedSeason);
         this.stats = this.nbaStore.getPlayerStats;
       } catch (error) {
         console.log(error.message);
       }
     },
-},
+  },
 };
 </script>
 
