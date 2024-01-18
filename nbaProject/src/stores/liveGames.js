@@ -1,88 +1,68 @@
 import { defineStore } from 'pinia';
 
-export const useGameStore = defineStore('game', {
+export const useGameStore = defineStore({
+  id: 'game',
   state: () => ({
+    gameTime: '00:00',
     homeTeamScore: 0,
     awayTeamScore: 0,
-    gameTime: '00:00',
-    seconds: 0,
+    gameInterval: null,
+    lastResetTime: new Date(),
   }),
   actions: {
-    updateScores(homeScore, awayScore) {
-      this.homeTeamScore = homeScore;
-      this.awayTeamScore = awayScore;
+    setGameTime(newTime) {
+      this.gameTime = newTime;
     },
-    updateGameTime(time) {
-      this.gameTime = time;
-    },
-    updateSeconds() {
-      this.seconds += 1;
-    },
-    generateRandomIncrement() {
-      return Math.floor(Math.random() * 3) + 1;
-    },
-    generateFakeTime() {
-      const formattedMinutes = Math.floor(this.seconds / 60)
-        .toString()
-        .padStart(2, '0');
-      const formattedSeconds = (this.seconds % 60).toString().padStart(2, '0');
-      return `${formattedMinutes}:${formattedSeconds}`;
-    },
-    generateFakeGameData() {
-      // Increment scores and seconds
-      this.homeTeamScore += this.generateRandomIncrement();
-      this.awayTeamScore += this.generateRandomIncrement();
-      this.seconds += 1;
 
-      // Generate fake game time
-      const gameTime = this.generateFakeTime();
+    setHomeTeamScore(newScore) {
+      this.homeTeamScore = newScore;
+    },
 
-      // Update scores every 10 seconds
-      const updateInterval = 10;
-      if (this.seconds % updateInterval === 0) {
-        this.homeTeamScore += this.generateRandomIncrement();
-        this.awayTeamScore += this.generateRandomIncrement();
+    setAwayTeamScore(newScore) {
+      this.awayTeamScore = newScore;
+    },
+
+    simulateGameUpdate(homeTeam, awayTeam) {
+      const currentTime = new Date();
+      const elapsedMinutes = Math.floor((currentTime - this.lastResetTime) / (1000 * 60));
+
+      if (elapsedMinutes >= 5) {
+        this.lastResetTime = currentTime;
+        this.setGameTime('00:00');
+        this.setHomeTeamScore(0);
+        this.setAwayTeamScore(0);
+      } else {
+        const formattedTime = `${String(currentTime.getMinutes()).padStart(2, '0')}:${String(
+          currentTime.getSeconds()
+        ).padStart(2, '0')}`;
+        this.setGameTime(formattedTime);
+
+        if (currentTime.getSeconds() % 5 === 0) {
+          const homeTeamPointsToAdd = Math.floor(Math.random() * 3) + 1;
+          this.setHomeTeamScore(this.homeTeamScore + homeTeamPointsToAdd);
+
+          const awayTeamPointsToAdd = Math.floor(Math.random() * 3) + 1;
+          this.setAwayTeamScore(this.awayTeamScore + awayTeamPointsToAdd);
+        }
       }
-
-      // Reset scores and seconds after every 90 seconds
-      if (this.seconds >= 90) {
-        this.homeTeamScore = 0;
-        this.awayTeamScore = 0;
-        this.seconds = 0;
-      }
-
-      return {
-        homeTeamScore: this.homeTeamScore,
-        awayTeamScore: this.awayTeamScore,
-        gameTime,
-      };
     },
-    simulateGameUpdate() {
-      // Update gameTime every second
-      const timeIntervalId = setInterval(() => {
-        this.updateSeconds();
-        const gameTime = this.generateFakeTime();
-        this.updateGameTime(gameTime);
-      }, 1000);
 
-      // Update scores every 10 seconds
-      const gameUpdateIntervalId = setInterval(() => {
-        this.updateSeconds();
-        const { homeTeamScore, awayTeamScore, gameTime } = this.generateFakeGameData();
-        this.updateScores(homeTeamScore, awayTeamScore);
-        this.updateGameTime(gameTime);
-        console.log('Scores updated');
-      }, 10000); // Update every 10 seconds
-
-      // Save the interval IDs in the store for later use
-      this.timeIntervalId = timeIntervalId;
-      this.gameUpdateIntervalId = gameUpdateIntervalId;
+    startGameUpdate() {
+      this.gameInterval = setInterval(() => {
+        this.simulateGameUpdate();
+      }, 1000); // 1 second interval
     },
 
     stopGameUpdate() {
-      // Use the saved interval IDs to clear the intervals
-      clearInterval(this.timeIntervalId);
-      clearInterval(this.gameUpdateIntervalId);
+      clearInterval(this.gameInterval);
+    },
+
+    resetGame() {
+      this.lastResetTime = new Date();
+      this.setGameTime('00:00');
+      this.setHomeTeamScore(0);
+      this.setAwayTeamScore(0);
+      this.gameInterval = null;
     },
   },
 });

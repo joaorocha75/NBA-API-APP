@@ -14,7 +14,7 @@
       <h1>Estatisticas do Jogador</h1>
       <div class="ano">
         <label id="season" for="ano">Season:</label>
-        <!-- <select v-model="season" @change="handleSeasonChange">
+        <select v-model="season" @change="handleSeasonChange">
           <option>2023</option>
           <option>2022</option>
           <option>2021</option>
@@ -24,12 +24,8 @@
           <option>2017</option>
           <option>2016</option>
           <option>2015</option>
-        </select> -->
-        <select id="seasonSelect" v-model="selectedSeason" @change="handleSeasonChange">
-          <option v-for="season in availableSeasons" :key="season" :value="season">{{ season }}</option>
         </select>
       </div>
-       <!-- Player Stats Table -->
       <table id="playersTable">
         <thead>
           <tr>
@@ -73,8 +69,6 @@
         </tbody>
       </table>
     </div>
-    <router-link :to="{ name: 'average', params: { id: player.id } }">seasonAverages Info</router-link>
-
     <div class="back-button">
       <router-link :to="{ name: 'team', params: { id: player.team.id } }">Back</router-link>
     </div>
@@ -82,7 +76,6 @@
 </template>
   
 <script>
-import { ref } from 'vue';
 import { useNBAStore } from '../stores/counter.js';
 
 export default {
@@ -91,18 +84,16 @@ export default {
       nbaStore: useNBAStore(),
       player: null,
       stats: null,
-      selectedSeason: ('2024'),
-      availableSeasons:(['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022','2023','2024']),
-      seasonAverages: null,
-
+      season: 2023,
     };
   },
   async created() {
     try {
       await this.nbaStore.fetchPlayer(this.$route.params.id);
       this.player = this.nbaStore.getPlayer;
+      console.log(this.player);
 
-      await this.nbaStore.fetchPlayerStats(this.selectedSeason, this.$route.params.id);
+      await this.nbaStore.fetchPlayerStats(this.season, this.$route.params.id);
       this.stats = this.nbaStore.getPlayerStats;
     } catch (error) {
       console.log(error.message);
@@ -111,14 +102,13 @@ export default {
   methods: {
     async handleSeasonChange() {
       try {
-        await this.nbaStore.fetchPlayerStats(this.selectedSeason, this.$route.params.id);
-        console.log(this.selectedSeason);
+        await this.nbaStore.fetchPlayerStats(this.season, this.$route.params.id);
         this.stats = this.nbaStore.getPlayerStats;
       } catch (error) {
         console.log(error.message);
       }
     },
-},
+  },
 };
 </script>
 
@@ -175,18 +165,5 @@ h2 {
 
 .back-button:hover {
   background-color: 'white';
-}
-
-#seasonAveragesTable {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-}
-
-#seasonAveragesTable th,
-#seasonAveragesTable td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: left;
 }
 </style>
